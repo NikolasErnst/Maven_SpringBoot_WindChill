@@ -6,6 +6,9 @@ on:
 
 jobs:
   job-fatjar:
+    strategy:
+      matrix:
+        java-version: [21,25]
     runs-on: ubuntu-latest
     steps:
     - name: Git-Repo auschecken
@@ -13,7 +16,7 @@ jobs:
     - name: JDK einrichten
       uses: actions/setup-java@v4
       with:
-        java-version: 25
+        java-version: ${{matrix.java-version}}
         distribution: 'temurin'
         cache: maven
     - name: Maven-Wrapper ausführbar machen
@@ -29,3 +32,4 @@ jobs:
         path: target/windchill-*-SNAPSHOT.jar
         if-no-files-found: error
         retention-days: 3
+
