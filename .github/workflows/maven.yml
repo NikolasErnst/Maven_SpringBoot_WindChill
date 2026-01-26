@@ -8,15 +8,16 @@ jobs:
   job-fatjar:
     strategy:
       matrix:
-        java-version: [21,25]
-    runs-on: ubuntu-latest
+        version: [25, 21]
+        os: [ubungtu-latest, windows-latest]
+    runs-on: ${{matrix.os}}
     steps:
     - name: Git-Repo auschecken
       uses: actions/checkout@v4
     - name: JDK einrichten
       uses: actions/setup-java@v4
       with:
-        java-version: ${{matrix.java-version}}
+        java-version: ${{matrix.version}}
         distribution: 'temurin'
         cache: maven
     - name: Maven-Wrapper ausführbar machen
@@ -28,9 +29,7 @@ jobs:
     - name: FatJar-Datei veröffentlichen
       uses: actions/upload-artifact@v4
       with:
-        name: WindChill_FatJar${{matrix.java-version}}
+        name: WindChill_FatJar/${{matrix.os}}/${{matrix.version}}
         path: target/windchill-*-SNAPSHOT.jar
         if-no-files-found: error
         retention-days: 3
-
-
