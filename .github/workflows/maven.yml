@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         version: [25, 21]
-        os: [ubungtu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest]
     runs-on: ${{matrix.os}}
     steps:
     - name: Git-Repo auschecken
@@ -33,4 +33,5 @@ jobs:
         path: target/windchill-*-SNAPSHOT.jar
         if-no-files-found: error
         retention-days: 3
+
 
